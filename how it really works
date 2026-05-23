@@ -1,0 +1,15 @@
+This is a custom Roblox melee combat system built for a fist fighting tool.
+
+It’s structured around a state system (idle, swing, block, counter, left/right kick) so actions don’t stack or break each other. Most of the logic is basically “check state → play animation → apply hit logic → switch state back.”
+
+Punches are handled through manual hit detection instead of default tools. When a hit connects it deals damage, then adds extra effects like knockback, stun, and different reactions depending on what was hit (for example headshots do more damage and force stronger movement). It also plays impact sounds and spawns small visual effects like shockwaves and trails to make hits feel more responsive.
+
+Blocking reduces movement speed and can turn into a parry if timed correctly. If a parry succeeds, it cancels incoming damage and forces the player back into a safe state with a quick recovery animation.
+
+The counter system is the most complex part. If you take damage during it, it finds a nearby attacker, cancels the damage, and pulls both players into a short scripted sequence. During that sequence it uses welds and physics constraints to lock positioning, then finishes by throwing the opponent away and dealing counter damage.
+
+Kicks are separate attacks with their own cooldowns and movement changes. They do more knockback than punches and have different behavior for left and right legs, including different range/speed.
+
+There’s also a lot of supporting systems underneath it: custom sound handling, temporary weld/attachment creation for animation control, trail effects on limbs, and cleanup logic when the tool is unequipped.
+
+Overall it’s a full server-side combat framework built around a state machine, custom animation sequencing, and physics-driven hit reactions, instead of Roblox’s default tool combat.
